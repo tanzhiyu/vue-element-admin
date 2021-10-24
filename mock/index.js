@@ -1,3 +1,9 @@
+/*
+ * @Author: tanzhiyu
+ * @Date: 2021-10-24 21:05:06
+ * @LastEditors: tanzhiyu
+ * @LastEditTime: 2021-10-24 22:15:10
+ */
 const Mock = require('mockjs')
 const { param2Obj } = require('./utils')
 
@@ -5,12 +11,14 @@ const user = require('./user')
 const role = require('./role')
 const article = require('./article')
 const search = require('./remote-search')
+const book = require('./book/index');
 
 const mocks = [
   ...user,
   ...role,
   ...article,
-  ...search
+  ...search,
+  ...book
 ]
 
 // for front mock

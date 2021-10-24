@@ -1,3 +1,9 @@
+<!--
+ * @Author: tanzhiyu
+ * @Date: 2021-10-24 21:05:06
+ * @LastEditors: tanzhiyu
+ * @LastEditTime: 2021-10-24 22:52:09
+-->
 <template>
   <div class="app-container">
     <el-row display="margin-top:10px">
@@ -8,17 +14,17 @@
       <el-table :data="list_book" element-loading-text="Loading" border fit highlight-current-row>
         <el-table-column align="center" label="ID" width="95">
           <template slot-scope="scope">
-            {{ scope.row.pk }}
+            {{ scope.row.id }}
           </template>
         </el-table-column>
         <el-table-column label="Book_name">
           <template slot-scope="scope">
-            {{ scope.row.fields.book_name }}
+            {{ scope.row.name }}
           </template>
         </el-table-column>
         <el-table-column label="Time" align="center">
           <template slot-scope="scope">
-            <span>{{ scope.row.fields.add_time }}</span>
+            <span>{{ scope.row.createTime }}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -57,8 +63,8 @@ export default {
     getList() {
       this.listLoading = true
       getList().then(response => {
-        if (response.error_num === 0) {
-          this.list_book = response['list']
+        if (response.code === 0) {
+          this.list_book = response.list
           this.listLoading = false
         } else {
           this.$message.error('查询书籍失败')
@@ -68,9 +74,10 @@ export default {
     },
     addBook() {
       addbook(this.input_bookname).then(response => {
-        if (response.error_num === 0) {
+        if (response.code === 0) {
           this.getList()
           this.input_bookname = ''
+          this.$message.success('新增书籍成功')
         } else {
           this.$message.error('新增书籍失败，请重试')
           console.log(response['msg'])
